@@ -1,20 +1,30 @@
 // src/pages/index.tsx
-import Head from 'next/head'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
+import Head from "next/head";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function Home() {
   return (
     <>
       <Head>
         <title>AlBal Radio – Aghany Albal</title>
-        <meta name="description" content="AlBal Radio is a Lebanon-based station broadcasting the greatest Arabic hits from the 80s, 90s, and 2000s. Tune in for a mix of timeless classics and modern favorites." />
-        <meta name="keywords" content="AlBal Radio, Arabic music, Lebanon radio, 80s hits, 90s hits, 2000s music, Aghany Albal" />
+        <meta
+          name="description"
+          content="AlBal Radio is a Lebanon-based station broadcasting the greatest Arabic hits from the 80s, 90s, and 2000s. Tune in for a mix of timeless classics and modern favorites."
+        />
+        <meta
+          name="keywords"
+          content="AlBal Radio, Arabic music, Lebanon radio, 80s hits, 90s hits, 2000s music, Aghany Albal"
+        />
         <meta name="author" content="AlBal Radio" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:title" content="AlBal Radio – Aghany Albal" />
-        <meta property="og:description" content="Broadcasting the greatest Arabic hits from the 80s, 90s, and 2000s." />
+        <meta
+          property="og:description"
+          content="Broadcasting the greatest Arabic hits from the 80s, 90s, and 2000s."
+        />
         <meta property="og:image" content="/albal_logo.png" />
         <meta property="og:url" content="https://www.albalradio.com" />
         <meta property="og:type" content="website" />
@@ -22,7 +32,10 @@ export default function Home() {
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="AlBal Radio – Aghany Albal" />
-        <meta name="twitter:description" content="Broadcasting the greatest Arabic hits from the 80s, 90s, and 2000s." />
+        <meta
+          name="twitter:description"
+          content="Broadcasting the greatest Arabic hits from the 80s, 90s, and 2000s."
+        />
         <meta name="twitter:image" content="/albal_logo.png" />
       </Head>
 
@@ -51,6 +64,7 @@ export default function Home() {
           />
         </div>
       </main>
+      <Analytics />
     </>
-  )
+  );
 }
