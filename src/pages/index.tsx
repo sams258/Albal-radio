@@ -18,6 +18,7 @@ export default function Home() {
           content="AlBal Radio, Arabic music, Lebanon radio, 80s hits, 90s hits, 2000s music, Aghany Albal"
         />
         <meta name="author" content="AlBal Radio" />
+        <meta name="orb-verification" content="4fe69c78eac6002f" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:title" content="AlBal Radio – Aghany Albal" />
