@@ -1,8 +1,8 @@
-// src/pages/index.tsx
 import Head from "next/head";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
+import { LiveAudioPlayer } from "@/components/LiveAudioPlayer";
 
 export default function Home() {
   return (
@@ -40,8 +40,8 @@ export default function Home() {
         <meta name="twitter:image" content="/albal_logo.png" />
       </Head>
 
-      <main className="flex min-h-screen items-center justify-center bg-white">
-        <div className="text-center space-y-8">
+      <main className="home-main">
+        <div className="home-content">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -52,19 +52,19 @@ export default function Home() {
               alt="AlBal Radio Logo"
               width={400}
               height={200}
-              className="mx-auto"
+              priority
+              className="logo"
             />
           </motion.div>
-          <motion.audio
-            controls
-            src="https://albal-lbnet2.radioca.st/stream?type=http&nocache=142550"
-            className="w-full max-w-md mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          />
         </div>
       </main>
+
+      <LiveAudioPlayer
+        streamUrl="https://albal-lbnet2.radioca.st/stream?type=http&nocache=142550"
+        metaUrl="https://dione.shoutca.st/recentfeed/albal/json/"
+        serverType="centova"
+      />
+
       <Analytics />
     </>
   );
