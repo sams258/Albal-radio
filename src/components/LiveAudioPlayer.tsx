@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React, { useRef, useState, useEffect } from 'react';
-import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2 } from 'lucide-react';
+import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { Play, Pause, Volume2 } from "lucide-react";
 
-type ServerType = 'centova' | 'radioboss';
+type ServerType = "centova" | "radioboss";
 
 interface Metadata {
   artist: string;
@@ -25,24 +25,31 @@ export const LiveAudioPlayer = ({
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.8);
-  const [currentSong, setCurrentSong] = useState<Metadata>({ artist: '', title: '', cover: '' });
+  const [currentSong, setCurrentSong] = useState<Metadata>({
+    artist: "",
+    title: "",
+    cover: "",
+  });
   const [errorCount, setErrorCount] = useState(0);
+  const [coverLoaded, setCoverLoaded] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(async () => {
       const metadata = await fetchMetadata(serverType, metaUrl);
       setCurrentSong(metadata);
+      setCoverLoaded(false); // Reset cover loaded flag when song changes
     }, 15000);
+
     return () => clearInterval(interval);
   }, [serverType, metaUrl]);
 
   const handleAudioError = () => {
-    console.warn('Audio error detected. Attempting to reconnect...');
+    console.warn("Audio error detected. Attempting to reconnect...");
     if (audioRef.current) {
       const retries = Math.min(errorCount + 1, 5);
       setTimeout(() => {
         audioRef.current?.load();
-        audioRef.current?.play().catch(() => console.error('Retry failed.'));
+        audioRef.current?.play().catch(() => console.error("Retry failed."));
       }, retries * 3000);
       setErrorCount(retries);
     }
@@ -69,15 +76,19 @@ export const LiveAudioPlayer = ({
   return (
     <div className="audio-player">
       <div className="player-info">
-        {currentSong.cover && (
+        <div className="cover-wrapper">
+          <div className="cover-placeholder" />
           <Image
-            src={currentSong.cover}
+            src={currentSong.cover ? currentSong.cover : "/fallback.png"}
             alt="Cover"
             width={48}
             height={48}
-            className="cover-image"
+            onLoad={() => setCoverLoaded(true)}
+            className={`cover-image ${coverLoaded ? "fade-in" : ""}`}
+            style={{ position: "absolute", top: 0, left: 0 }}
           />
-        )}
+        </div>
+
         <div className="text-info">
           <span className="station-name">AlBal Radio</span>
           <AnimatePresence mode="wait">
@@ -91,7 +102,7 @@ export const LiveAudioPlayer = ({
             >
               {currentSong.artist && currentSong.title
                 ? `${currentSong.artist} - ${currentSong.title}`
-                : 'Streaming...'}
+                : "Loading Song info..."}
             </motion.span>
           </AnimatePresence>
         </div>
@@ -128,48 +139,52 @@ export const LiveAudioPlayer = ({
   );
 };
 
-async function fetchMetadata(serverType: ServerType, endpointUrl: string): Promise<Metadata> {
+async function fetchMetadata(
+  serverType: ServerType,
+  endpointUrl: string
+): Promise<Metadata> {
   try {
     const response = await fetch(endpointUrl);
     const textData = await response.text();
     let jsonData;
-    if (textData.trim().startsWith('{') || textData.trim().startsWith('[')) {
+    if (textData.trim().startsWith("{") || textData.trim().startsWith("[")) {
       jsonData = JSON.parse(textData);
     } else {
       const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(textData, 'application/xml');
-      if (serverType === 'centova') {
-        const artist = xmlDoc.querySelector('artist')?.textContent ?? '';
-        const title = xmlDoc.querySelector('title')?.textContent ?? '';
-        return { artist, title, cover: '' };
+      const xmlDoc = parser.parseFromString(textData, "application/xml");
+      if (serverType === "centova") {
+        const artist = xmlDoc.querySelector("artist")?.textContent ?? "";
+        const title = xmlDoc.querySelector("title")?.textContent ?? "";
+        return { artist, title, cover: "" };
       } else {
-        return { artist: '', title: '', cover: '' };
+        return { artist: "", title: "", cover: "" };
       }
     }
 
-    if (serverType === 'centova') {
+    if (serverType === "centova") {
       const firstItem = jsonData.items?.[0];
       if (!firstItem || !firstItem.title) {
-        return { artist: '', title: '', cover: '' };
+        return { artist: "", title: "", cover: "" };
       }
-      const [artistPart, titlePart] = firstItem.title.split(' - ', 2);
-      const coverUrl = firstItem.enclosure?.url ?? '';
+      const [artistPart, titlePart] = firstItem.title.split(" - ", 2);
+      const coverUrl = firstItem.enclosure?.url ?? "";
+
       return {
-        artist: artistPart || '',
-        title: titlePart || '',
+        artist: artistPart || "",
+        title: titlePart || "",
         cover: coverUrl,
       };
-    } else if (serverType === 'radioboss') {
+    } else if (serverType === "radioboss") {
       return {
-        artist: jsonData.current_song?.artist || '',
-        title: jsonData.current_song?.title || '',
-        cover: '',
+        artist: jsonData.current_song?.artist || "",
+        title: jsonData.current_song?.title || "",
+        cover: "",
       };
     } else {
-      return { artist: '', title: '', cover: '' };
+      return { artist: "", title: "", cover: "" };
     }
   } catch (error) {
-    console.error('Failed to fetch metadata:', error);
-    return { artist: '', title: '', cover: '' };
+    console.error("Failed to fetch metadata:", error);
+    return { artist: "", title: "", cover: "" };
   }
 }
