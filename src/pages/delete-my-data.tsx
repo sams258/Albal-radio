@@ -13,7 +13,7 @@ export default function DeleteMyData() {
         <div className={styles.card}>
           <h1 className={styles.heading}>Data Deletion Policy</h1>
           <p className={styles.text}>
-            This app only accesses Instagram content from the owner's account and does not store or process any user data.
+            This app only accesses Instagram content from the owner&apos;s account and does not store or process any user data.
             <br /><br />
             If you believe your data has been used incorrectly, please contact us at:
             <br />
