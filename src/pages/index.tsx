@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
-import { LiveAudioPlayer } from "@/components/LiveAudioPlayer";
 
 export default function Home() {
   return (
@@ -55,15 +54,28 @@ export default function Home() {
               priority
               className="logo"
             />
+            <div className="instagram-cta">
+              <a
+                href="https://www.instagram.com/albalradio" // 🔁 replace with your actual handle
+                target="_blank"
+                rel="noopener noreferrer"
+                className="instagram-button"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm4.75-2a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Z" />
+                </svg>
+                <span>Follow us on Instagram</span>
+              </a>
+            </div>
           </motion.div>
         </div>
       </main>
-
-      <LiveAudioPlayer
-        streamUrl="https://albal-lbnet2.radioca.st/stream?type=http&nocache=142550"
-        metaUrl="https://dione.shoutca.st/recentfeed/albal/json/"
-        serverType="centova"
-      />
 
       <Analytics />
     </>
