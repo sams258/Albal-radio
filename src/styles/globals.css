@@ -274,7 +274,7 @@ body {
 }
 
 /* --- RESPONSIVE RULES --- */
-@media (max-width: 768px) {
+@media (max-width: 950px) {
 
   .page-container {
     padding-bottom: 175px;
