@@ -37,6 +37,7 @@ export default function Home() {
           content="Broadcasting the greatest Arabic hits from the 80s, 90s, and 2000s."
         />
         <meta name="twitter:image" content="/albal_logo.png" />
+        <link rel="canonical" href="https://albalradio.com" />
       </Head>
 
       <main className="home-main">
