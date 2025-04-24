@@ -78,6 +78,7 @@
       bottom: 45px;
       right: 35px;
     }
+}
 
 @media (max-width: 400px) {
   .floating-track-button {
