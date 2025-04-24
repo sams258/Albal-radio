@@ -1,8 +1,10 @@
 // src/pages/_app.tsx
 import '@/styles/globals.css';
+import "../components/RecentTracksModal.css";
 import type { AppProps } from 'next/app';
 import { LiveAudioPlayer } from '@/components/LiveAudioPlayer';
 import Layout from '@/components/Layout';
+import RecentTracksModal from '@/components/RecentTracksModal';
 
 const streamUrl = process.env.NEXT_PUBLIC_STREAM_URL!;
 const metaUrl = process.env.NEXT_PUBLIC_META_URL!;
@@ -16,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
         metaUrl={metaUrl}
         serverType={serverType}
       />
+      <RecentTracksModal />
       <Layout>
         <Component {...pageProps} />
       </Layout>

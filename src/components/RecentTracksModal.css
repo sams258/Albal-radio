@@ -1,0 +1,138 @@
+.floating-track-button {
+  position: fixed;
+  bottom: 45px; /* above audio player */
+  right: 50px;
+  z-index: 9500;
+}
+
+.track-history-btn {
+  background-color: #0b11198d; /* matches audio player */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 1rem;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.track-history-btn:hover {
+  background-color: #101827;
+  transform: translateY(-2px);
+}
+
+.track-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.track-modal {
+  background: rgba(255, 255, 255, 0.911);
+  color: black;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.track-modal h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.track-modal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.track-modal li {
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 400px) {
+  .floating-track-button {
+    bottom: 200px;
+    right: 50px;
+  }
+
+  .track-modal {
+    max-width: 90%;
+    padding: 16px;
+  }
+}
+
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.track-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 10px 0;
+}
+
+.track-cover {
+  width: 48px;
+  height: 48px;
+
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.track-cover-wrapper {
+  width: 48px;
+  height: 48px;
+  position: relative;
+
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.track-cover-placeholder {
+  width: 100%;
+  height: 100%;
+  background: url("/fallback.png") center center / cover no-repeat;
+}
+
+.track-info {
+  flex-grow: 1;
+}
+
+.track-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.track-artist {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+}
