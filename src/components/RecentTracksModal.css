@@ -1,6 +1,6 @@
 .floating-track-button {
   position: fixed;
-  bottom: 45px; /* above audio player */
+  bottom: 45px; 
   right: 50px;
   z-index: 9500;
 }
@@ -73,6 +73,12 @@
   cursor: pointer;
 }
 
+@media (max-width: 768px) {
+    .floating-track-button {
+      bottom: 45px;
+      right: 35px;
+    }
+
 @media (max-width: 400px) {
   .floating-track-button {
     bottom: 200px;
@@ -136,3 +142,5 @@
   color: #555;
   margin: 0;
 }
+
+
