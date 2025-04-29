@@ -30,55 +30,74 @@ export const LiveAudioPlayer = ({
     title: "",
     cover: "",
   });
-  const [errorCount, setErrorCount] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const lastReloadRef = useRef<number>(0); // ✅ Used to debounce reloads
+
+  const reloadStream = () => {
+    const now = Date.now();
+    if (now - lastReloadRef.current < 8000) {
+      console.warn("⏳ Reload skipped to prevent loop.");
+      return;
+    }
+    lastReloadRef.current = now;
+
+    if (audioRef.current) {
+      const src = streamUrl.includes("?")
+        ? `${streamUrl}&t=${Date.now()}`
+        : `${streamUrl}?t=${Date.now()}`;
+      audioRef.current.src = src;
+      audioRef.current.load();
+      audioRef.current
+        .play()
+        .then(() => setPlaying(true))
+        .catch((err) => console.error("❌ Reload failed:", err));
+    }
+  };
 
   useEffect(() => {
-    const interval = setInterval(async () => {
+    const fetchAndUpdate = async () => {
       const metadata = await fetchMetadata(serverType, metaUrl);
       setCurrentSong(metadata);
       setImageLoaded(false);
 
-      // ✅ Media Session API for lock screen
-      if ('mediaSession' in navigator && metadata.title) {
+      if ("mediaSession" in navigator && metadata.title) {
         navigator.mediaSession.metadata = new MediaMetadata({
           title: metadata.title,
-          artist: metadata.artist || 'Albal Radio',
-          album: 'Live Stream',
+          artist: metadata.artist || "Albal Radio",
+          album: "Live Stream",
           artwork: [
             {
-              src: metadata.cover || '/icon.png',
-              sizes: '512x512',
-              type: 'image/png',
+              src: metadata.cover || "/icon.png",
+              sizes: "512x512",
+              type: "image/png",
             },
           ],
         });
 
-        navigator.mediaSession.setActionHandler('play', () => {
+        navigator.mediaSession.setActionHandler("play", () => {
           audioRef.current?.play();
           setPlaying(true);
         });
-
-        navigator.mediaSession.setActionHandler('pause', () => {
+        navigator.mediaSession.setActionHandler("pause", () => {
           audioRef.current?.pause();
           setPlaying(false);
         });
       }
-    }, 15000);
+    };
 
+    fetchAndUpdate();
+    const interval = setInterval(fetchAndUpdate, 3000); // Every 3s
     return () => clearInterval(interval);
   }, [serverType, metaUrl]);
 
   const handleAudioError = () => {
-    console.warn("Audio error detected. Attempting to reconnect...");
-    if (audioRef.current) {
-      const retries = Math.min(errorCount + 1, 5);
-      setTimeout(() => {
-        audioRef.current?.load();
-        audioRef.current?.play().catch(() => console.error("Retry failed."));
-      }, retries * 3000);
-      setErrorCount(retries);
-    }
+    console.warn("⚠️ Audio error detected. Attempting to reconnect...");
+    reloadStream();
+  };
+
+  const handleAudioStall = () => {
+    console.warn("⚠️ Audio stalled or suspended. Reloading...");
+    reloadStream();
   };
 
   const togglePlay = () => {
@@ -86,7 +105,7 @@ export const LiveAudioPlayer = ({
     if (playing) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(console.error);
+      reloadStream(); // always fresh
     }
     setPlaying(!playing);
   };
@@ -171,9 +190,11 @@ export const LiveAudioPlayer = ({
 
       <audio
         ref={audioRef}
-        src={streamUrl}
         preload="none"
         onError={handleAudioError}
+        onStalled={handleAudioStall}
+        onSuspend={handleAudioStall}
+        onWaiting={handleAudioStall}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
       />
@@ -189,6 +210,7 @@ async function fetchMetadata(
     const response = await fetch(endpointUrl);
     const textData = await response.text();
     let jsonData;
+
     if (textData.trim().startsWith("{") || textData.trim().startsWith("[")) {
       jsonData = JSON.parse(textData);
     } else {
