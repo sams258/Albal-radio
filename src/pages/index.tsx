@@ -10,7 +10,7 @@ export default function Home() {
         <title>AlBal Radio – Aghany Albal</title>
         <meta
           name="description"
-          content="AlBal Radio is a Lebanon-based station broadcasting the greatest Arabic hits from the 80s, 90s, and 2000s. Tune in for a mix of timeless classics and modern favorites."
+          content="AlBal Radio is a station broadcasting the greatest Arabic hits from the 80s, 90s, and 2000s. Tune in for a mix of timeless classics and modern favorites."
         />
         <meta
           name="keywords"
