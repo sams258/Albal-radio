@@ -19,9 +19,7 @@ export default function RecentTracksModal() {
 
   const fetchTracks = async () => {
     try {
-      const res = await fetch(
-        "https://dione.shoutca.st/recentfeed/albal/json?limit=20"
-      );
+      const res = await fetch("https://dione.shoutca.st/recentfeed/albal/json?limit=20");
       const data = await res.json();
 
       const allTracks: Track[] = data.items || [];
@@ -56,9 +54,7 @@ export default function RecentTracksModal() {
       {isOpen && (
         <div className="track-modal-overlay" onClick={() => setIsOpen(false)}>
           <div className="track-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="close-btn" onClick={() => setIsOpen(false)}>
-              ×
-            </button>
+            <button className="close-btn" onClick={() => setIsOpen(false)}>×</button>
             <h2>🎶 Recently Played</h2>
             <ul className="track-list">
               {tracks.map((track, idx) => (
@@ -71,10 +67,6 @@ export default function RecentTracksModal() {
                       height={48}
                       className="track-cover"
                       unoptimized
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = "/fallback.png";
-                      }}
                     />
                   </div>
                   <span>{track.title}</span>
