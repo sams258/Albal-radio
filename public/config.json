@@ -1,10 +1,20 @@
 {
+  "app": {
+    "displayName": "Albal App",
+    "brandLine": "Arabic Oldies • 80s, 90s, 2000s"
+  },
   "stationName": "Albal Radio",
   "streamUrl": "https://albal-lbnet2.radioca.st/stream",
   "fallbackStreamUrl": "https://c32.radioboss.fm:8472/stream",
   "nowPlaying": {
     "primary": "https://albal-lbnet2.radioca.st/stats?sid=1",
-    "fallback": "https://dione.shoutca.st/recentfeed/albal/json/"
+    "primaryFormat": "keyvalue",
+    "fallback": "https://dione.shoutca.st/recentfeed/albal/json/",
+    "fallbackFormat": "json_recent_list"
+  },
+  "network": {
+    "timeoutSeconds": 8,
+    "nowPlayingPollSeconds": 12
   },
   "ui": {
     "theme": "dark",
@@ -15,5 +25,5 @@
     "website": "https://albalradio.com"
   },
   "updatedAt": "2026-01-29T00:00:00Z",
-  "version": 1
+  "version": 2
 }
