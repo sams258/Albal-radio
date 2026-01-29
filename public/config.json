@@ -1,0 +1,19 @@
+{
+  "stationName": "Albal Radio",
+  "streamUrl": "https://albal-lbnet2.radioca.st/stream",
+  "fallbackStreamUrl": "https://c32.radioboss.fm:8472/stream",
+  "nowPlaying": {
+    "primary": "https://albal-lbnet2.radioca.st/stats?sid=1",
+    "fallback": "https://dione.shoutca.st/recentfeed/albal/json/"
+  },
+  "ui": {
+    "theme": "dark",
+    "carMode": true
+  },
+  "support": {
+    "contactEmail": "albalradio966@gmail.com",
+    "website": "https://albalradio.com"
+  },
+  "updatedAt": "2026-01-29T00:00:00Z",
+  "version": 1
+}
