@@ -17,8 +17,8 @@
     "nowPlayingPollSeconds": 12
   },
   "ui": {
-    "theme": "dark",
-    "carMode": true
+    "theme": "light",
+    "carMode": false
   },
   "support": {
     "contactEmail": "albalradio966@gmail.com",
