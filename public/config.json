@@ -5,7 +5,7 @@
   },
   "stationName": "Albal Radio",
   "streamUrl": "https://albal-lbnet2.radioca.st/stream",
-  "fallbackStreamUrl": "https://c32.radioboss.fm:8472/stream",
+  "fallbackStreamUrl": "https://live.albalradio.com/listen/albal/fb",
   "nowPlaying": {
     "primary": "https://albal-lbnet2.radioca.st/stats?sid=1",
     "primaryFormat": "keyvalue",
