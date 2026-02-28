@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
+import AndroidApp from "../components/AndroidApp";
 
 export default function Home() {
   return (
@@ -55,9 +56,10 @@ export default function Home() {
               priority
               className="logo"
             />
+            <AndroidApp />
             <div className="instagram-cta">
               <a
-                href="https://www.instagram.com/albalradio" // 🔁 replace with your actual handle
+                href="https://www.instagram.com/albalradio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="instagram-button"
@@ -74,6 +76,7 @@ export default function Home() {
                 <span>Follow us on Instagram</span>
               </a>
             </div>
+            
           </motion.div>
         </div>
       </main>

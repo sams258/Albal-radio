@@ -1,0 +1,18 @@
+.googlePlayBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.googlePlayBadge {
+  width: 140px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .googlePlayBadge {
+    width: 120px;
+  }
+}
